@@ -5,17 +5,22 @@ import sqlalchemy
 import json
 from sqlalchemy import create_engine, text
 from flask import Flask, jsonify
+from sqlalchemy.ext.automap import automap_base
 
+#################################################
+# Flask Setup
+#################################################
+app = Flask(__name__)
 
 #################################################
 # Database Setup
 #################################################
 engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
-#################################################
-# Flask Setup
-#################################################
-app = Flask(__name__)
+# reflect an existing database into a new model
+Base = automap_base()
+# reflect the tables
+Base.prepare(autoload_with=engine)
 
 #################################################
 # Flask Routes
